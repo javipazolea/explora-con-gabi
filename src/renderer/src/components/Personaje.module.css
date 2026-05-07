@@ -1,0 +1,29 @@
+.personaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cara {
+  font-size: 5rem;
+  animation: flotar 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+  cursor: default;
+  user-select: none;
+}
+
+.nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #555;
+  background: rgba(0,0,0,0.1);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+}
+
+@keyframes flotar {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}

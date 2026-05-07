@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import BotonVolver from './BotonVolver'
+import Personaje from './Personaje'
 
 function Actividad({ preguntas, color, acento }) {
   const [indice, setIndice] = useState(0)
   const [resultado, setResultado] = useState(null)
   const [puntaje, setPuntaje] = useState(0)
   const [terminado, setTerminado] = useState(false)
+  const [estadoPersonaje, setEstadoPersonaje] = useState('pensando')
 
   const preguntaActual = preguntas[indice]
 
@@ -13,13 +15,16 @@ function Actividad({ preguntas, color, acento }) {
     if (alternativa === preguntaActual.correcta) {
       setResultado('correcto')
       setPuntaje(puntaje + 1)
+      setEstadoPersonaje('celebrando')
     } else {
       setResultado('incorrecto')
+      setEstadoPersonaje('animando')
     }
   }
 
   const siguiente = () => {
     setResultado(null)
+    setEstadoPersonaje('pensando')
     if (indice + 1 < preguntas.length) {
       setIndice(indice + 1)
     } else {
@@ -39,6 +44,7 @@ function Actividad({ preguntas, color, acento }) {
         position: 'relative'
       }}>
         <BotonVolver />
+        <Personaje estado="emocionada" />
         <p style={{ fontSize: '5rem' }}>🏆</p>
         <h2 style={{ fontSize: '2.5rem', color: '#333', marginBottom: '0.5rem' }}>
           ¡Lo lograste Gabi!
@@ -52,6 +58,7 @@ function Actividad({ preguntas, color, acento }) {
             setIndice(0)
             setPuntaje(0)
             setResultado(null)
+            setEstadoPersonaje('pensando')
           }}
           style={{
             background: acento,
@@ -84,7 +91,9 @@ function Actividad({ preguntas, color, acento }) {
     }}>
       <BotonVolver />
 
-      <p style={{ fontSize: '1rem', color: '#888', marginBottom: '1rem' }}>
+      <Personaje estado={estadoPersonaje} />
+
+      <p style={{ fontSize: '1rem', color: '#888', marginBottom: '1rem', marginTop: '1rem' }}>
         Pregunta {indice + 1} de {preguntas.length} · Puntaje: {puntaje}
       </p>
 
@@ -119,7 +128,6 @@ function Actividad({ preguntas, color, acento }) {
 
       {resultado === 'correcto' && (
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '3rem' }}>🎉</p>
           <p style={{ fontSize: '1.8rem', color: '#22c55e', fontWeight: '700' }}>
             ¡Muy bien Gabi!
           </p>
@@ -144,12 +152,14 @@ function Actividad({ preguntas, color, acento }) {
 
       {resultado === 'incorrecto' && (
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '3rem' }}>😅</p>
           <p style={{ fontSize: '1.8rem', color: '#ef4444', fontWeight: '700' }}>
             ¡Inténtalo de nuevo!
           </p>
           <button
-            onClick={() => setResultado(null)}
+            onClick={() => {
+  setResultado(null)
+  setEstadoPersonaje('pensando')
+}}
             style={{
               marginTop: '1.5rem',
               background: '#ef4444',
