@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BotonVolver from './BotonVolver'
 import Personaje from './Personaje'
+import generarPreguntas from './generadorMatematicas'
 
-function Actividad({ preguntas, color, acento }) {
+function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
+  const [preguntas, setPreguntas] = useState([])
   const [indice, setIndice] = useState(0)
   const [resultado, setResultado] = useState(null)
   const [puntaje, setPuntaje] = useState(0)
   const [terminado, setTerminado] = useState(false)
   const [estadoPersonaje, setEstadoPersonaje] = useState('pensando')
+
+  useEffect(() => {
+    setPreguntas(generarPreguntas(nivel))
+  }, [nivel])
+
+  if (preguntas.length === 0) return <p>Cargando...</p>
 
   const preguntaActual = preguntas[indice]
 
@@ -44,7 +52,7 @@ function Actividad({ preguntas, color, acento }) {
         position: 'relative'
       }}>
         <BotonVolver />
-        <Personaje estado="emocionada" />
+        <Personaje estado="celebrando" />
         <p style={{ fontSize: '5rem' }}>🏆</p>
         <h2 style={{ fontSize: '2.5rem', color: '#333', marginBottom: '0.5rem' }}>
           ¡Lo lograste Gabi!
@@ -59,6 +67,7 @@ function Actividad({ preguntas, color, acento }) {
             setPuntaje(0)
             setResultado(null)
             setEstadoPersonaje('pensando')
+            setPreguntas(generarPreguntas(nivel))
           }}
           style={{
             background: acento,
@@ -90,7 +99,6 @@ function Actividad({ preguntas, color, acento }) {
       justifyContent: 'center'
     }}>
       <BotonVolver />
-
       <Personaje estado={estadoPersonaje} />
 
       <p style={{ fontSize: '1rem', color: '#888', marginBottom: '1rem', marginTop: '1rem' }}>
@@ -131,20 +139,17 @@ function Actividad({ preguntas, color, acento }) {
           <p style={{ fontSize: '1.8rem', color: '#22c55e', fontWeight: '700' }}>
             ¡Muy bien Gabi!
           </p>
-          <button
-            onClick={siguiente}
-            style={{
-              marginTop: '1.5rem',
-              background: acento,
-              color: 'white',
-              border: 'none',
-              borderRadius: '16px',
-              padding: '1rem 2rem',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              cursor: 'pointer'
-            }}
-          >
+          <button onClick={siguiente} style={{
+            marginTop: '1.5rem',
+            background: acento,
+            color: 'white',
+            border: 'none',
+            borderRadius: '16px',
+            padding: '1rem 2rem',
+            fontSize: '1.2rem',
+            fontWeight: '700',
+            cursor: 'pointer'
+          }}>
             Siguiente →
           </button>
         </div>
@@ -155,23 +160,20 @@ function Actividad({ preguntas, color, acento }) {
           <p style={{ fontSize: '1.8rem', color: '#ef4444', fontWeight: '700' }}>
             ¡Inténtalo de nuevo!
           </p>
-          <button
-            onClick={() => {
-  setResultado(null)
-  setEstadoPersonaje('pensando')
-}}
-            style={{
-              marginTop: '1.5rem',
-              background: '#ef4444',
-              color: 'white',
-              border: 'none',
-              borderRadius: '16px',
-              padding: '1rem 2rem',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              cursor: 'pointer'
-            }}
-          >
+          <button onClick={() => {
+            setResultado(null)
+            setEstadoPersonaje('pensando')
+          }} style={{
+            marginTop: '1.5rem',
+            background: '#ef4444',
+            color: 'white',
+            border: 'none',
+            borderRadius: '16px',
+            padding: '1rem 2rem',
+            fontSize: '1.2rem',
+            fontWeight: '700',
+            cursor: 'pointer'
+          }}>
             Intentar de nuevo
           </button>
         </div>
