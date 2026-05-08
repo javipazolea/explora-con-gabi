@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react'
 import BotonVolver from './BotonVolver'
 import Personaje from './Personaje'
-import generarPreguntas from './generadorMatematicas'
+import generarMatematicas from './generadorMatematicas'
+import generarLenguaje from './generadorLenguaje'
+import generarCiencias from './generadorCiencias'
+const generadores = {
+  matematicas: generarMatematicas,
+  lenguaje: generarLenguaje,
+  ciencias: generarCiencias
+}
 
 function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
   const [preguntas, setPreguntas] = useState([])
@@ -12,8 +19,9 @@ function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
   const [estadoPersonaje, setEstadoPersonaje] = useState('pensando')
 
   useEffect(() => {
-    setPreguntas(generarPreguntas(nivel))
-  }, [nivel])
+  const generador = generadores[materia]
+  if (generador) setPreguntas(generador(nivel))
+}, [nivel, materia])
 
   if (preguntas.length === 0) return <p>Cargando...</p>
 
@@ -67,7 +75,8 @@ function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
             setPuntaje(0)
             setResultado(null)
             setEstadoPersonaje('pensando')
-            setPreguntas(generarPreguntas(nivel))
+            const generador = generadores[materia]
+if (generador) setPreguntas(generador(nivel))
           }}
           style={{
             background: acento,

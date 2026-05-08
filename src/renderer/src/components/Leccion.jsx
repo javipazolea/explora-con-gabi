@@ -5,7 +5,7 @@ import BotonVolver from './BotonVolver'
 function Leccion({ nivel, materia, onTerminar }) {
   const [paso, setPaso] = useState(0)
 
-  const lecciones = {
+ const lecciones = {
     matematicas: {
       1: [
         { texto: '¡Hola! Hoy vamos a aprender a sumar 🌟', emoji: '😊' },
@@ -28,9 +28,54 @@ function Leccion({ nivel, materia, onTerminar }) {
         { texto: '3 - 1 = 2 ¡Así de fácil! Cuenta hacia atrás con tus dedos', emoji: '😊' },
         { texto: '¡Genial! Ya sabes restar, vamos a practicar 💪', emoji: '🥳' },
       ]
+    },
+    lenguaje: {
+      1: [
+        { texto: '¡Hola! Hoy vamos a aprender las letras 🌟', emoji: '😊' },
+        { texto: 'Las vocales son: A E I O U 🎵', emoji: '🤔' },
+        { texto: 'Cada palabra empieza con una letra — ¡como tu nombre! 🌸', emoji: '🤩' },
+        { texto: '¿Sabes con qué letra empieza "mamá"? ¡Con la M! 💛', emoji: '😊' },
+        { texto: '¡Muy bien! Ahora practiquemos juntas 🎉', emoji: '🥳' },
+      ],
+      2: [
+        { texto: '¡Nivel 2! Vamos a aprender las sílabas 🌟', emoji: '😊' },
+        { texto: 'Una sílaba es un golpe de voz — CA-SA tiene 2 golpes', emoji: '🤔' },
+        { texto: 'Palmea mientras dices: MA-RI-PO-SA 👏👏👏👏', emoji: '🤩' },
+        { texto: '¿Cuántos golpes tiene "SOL"? ¡Solo 1! SOL 👏', emoji: '😊' },
+        { texto: '¡Genial! Ya sabes contar sílabas, a practicar 💪', emoji: '🥳' },
+      ],
+      3: [
+        { texto: '¡Nivel 3! Ahora vamos con palabras y oraciones 🌟', emoji: '😊' },
+        { texto: 'Una oración tiene un personaje y una acción', emoji: '🤔' },
+        { texto: '"El perro corre" — el perro es el personaje, corre es la acción 🐕', emoji: '🤩' },
+        { texto: 'Los opuestos son palabras contrarias — grande/pequeño, frío/caliente ❄️🔥', emoji: '😊' },
+        { texto: '¡Excelente! Ya estás lista para practicar 🎉', emoji: '🥳' },
+      ]
+    },
+    ciencias: {
+      1: [
+        { texto: '¡Hola! Hoy vamos a aprender sobre los animales 🐾', emoji: '😊' },
+        { texto: 'Los animales pueden vivir en el agua, la tierra o el aire 🌊🌿🌤️', emoji: '🤔' },
+        { texto: 'El pez vive en el agua 🐟 El pájaro vive en el aire 🐦', emoji: '🤩' },
+        { texto: 'El perro vive en la tierra 🐕 ¿Y el gato? ¡También! 🐱', emoji: '😊' },
+        { texto: '¡Muy bien! Vamos a practicar lo que aprendiste 🎉', emoji: '🥳' },
+      ],
+      2: [
+        { texto: '¡Nivel 2! Hoy aprendemos sobre las plantas 🌱', emoji: '😊' },
+        { texto: 'Las plantas necesitan agua, sol y tierra para vivir ☀️💧🌍', emoji: '🤔' },
+        { texto: 'Las plantas tienen raíz, tallo, hojas y flores 🌸', emoji: '🤩' },
+        { texto: 'La raíz toma el agua del suelo — ¡como una pajita! 🌿', emoji: '😊' },
+        { texto: '¡Genial! Ya sabes sobre las plantas, a practicar 💪', emoji: '🥳' },
+      ],
+      3: [
+        { texto: '¡Nivel 3! Hoy vamos con el cuerpo humano 🧍', emoji: '😊' },
+        { texto: 'Nuestro cuerpo tiene muchas partes — cabeza, tronco y extremidades', emoji: '🤔' },
+        { texto: 'Los sentidos nos ayudan a conocer el mundo 👀👂👃', emoji: '🤩' },
+        { texto: 'Vista, oído, olfato, gusto y tacto — ¡5 sentidos! 🖐️', emoji: '😊' },
+        { texto: '¡Increíble! Ya conoces tu cuerpo, vamos a practicar 🎉', emoji: '🥳' },
+      ]
     }
   }
-
   const pasos = lecciones[materia]?.[nivel] || []
   const pasoActual = pasos[paso]
 
