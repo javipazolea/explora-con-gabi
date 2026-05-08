@@ -2,32 +2,7 @@ import { useState, useEffect } from 'react'
 import Personaje from './Personaje'
 import BotonVolver from './BotonVolver'
 import { sonidos } from './sonidos'
-
-const limpiarTexto = (texto) => {
-  return texto
-    .replace(/[\u{1F600}-\u{1F64F}]/gu, '')
-    .replace(/[\u{1F300}-\u{1F5FF}]/gu, '')
-    .replace(/[\u{1F680}-\u{1F6FF}]/gu, '')
-    .replace(/[\u{1F700}-\u{1F77F}]/gu, '')
-    .replace(/[\u{1F780}-\u{1F7FF}]/gu, '')
-    .replace(/[\u{1F800}-\u{1F8FF}]/gu, '')
-    .replace(/[\u{1F900}-\u{1F9FF}]/gu, '')
-    .replace(/[\u{1FA00}-\u{1FA6F}]/gu, '')
-    .replace(/[\u{2600}-\u{26FF}]/gu, '')
-    .replace(/[\u{2700}-\u{27BF}]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-const hablar = (texto) => {
-  window.speechSynthesis.cancel()
-  const limpio = limpiarTexto(texto)
-  const voz = new SpeechSynthesisUtterance(limpio)
-  voz.lang = 'es-CL'
-  voz.rate = 0.85
-  voz.pitch = 1.1
-  window.speechSynthesis.speak(voz)
-}
+import { useHablar } from './ConfigContext'
 
 const lecciones = {
   matematicas: {
@@ -125,6 +100,7 @@ const lecciones = {
 
 function Leccion({ nivel, materia, onTerminar }) {
   const [paso, setPaso] = useState(0)
+  const hablar = useHablar()
   const pasos = lecciones[materia]?.[nivel] || []
   const pasoActual = pasos[paso]
 
@@ -133,7 +109,7 @@ function Leccion({ nivel, materia, onTerminar }) {
       hablar(pasoActual.texto)
     }
     return () => window.speechSynthesis.cancel()
-  }, [paso, pasoActual])
+  }, [paso])
 
   if (!pasoActual) return null
 

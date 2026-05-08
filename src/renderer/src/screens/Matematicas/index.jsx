@@ -4,6 +4,7 @@ import BotonVolver from '../../components/BotonVolver'
 import Personaje from '../../components/Personaje'
 import Actividad from '../../components/Actividad'
 import Leccion from '../../components/Leccion'
+import BotonConfig from '../../components/BotonConfig'
 
 function Matematicas() {
   const [nivel, setNivel] = useState(null)

@@ -2,12 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import styles from './index.module.css'
 import Personaje from '../../components/Personaje'
 import { sonidos } from '../../components/sonidos'
+import BotonConfig from '../../components/BotonConfig'
 
 function Home() {
   const navigate = useNavigate()
 
   return (
     <main className={styles.main}>
+      <BotonConfig />
       <header className={styles.header}>
         <Personaje estado="feliz" />
         <h1>¡Hola Gabi! 🌟</h1>

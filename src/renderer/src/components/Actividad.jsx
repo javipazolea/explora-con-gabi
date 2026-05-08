@@ -5,37 +5,12 @@ import generarMatematicas from './generadorMatematicas'
 import generarLenguaje from './generadorLenguaje'
 import generarCiencias from './generadorCiencias'
 import { sonidos } from './sonidos'
+import { useHablar, useConfig } from './ConfigContext'
 
 const generadores = {
   matematicas: generarMatematicas,
   lenguaje: generarLenguaje,
   ciencias: generarCiencias
-}
-
-const limpiarTexto = (texto) => {
-  return texto
-    .replace(/[\u{1F600}-\u{1F64F}]/gu, '')
-    .replace(/[\u{1F300}-\u{1F5FF}]/gu, '')
-    .replace(/[\u{1F680}-\u{1F6FF}]/gu, '')
-    .replace(/[\u{1F700}-\u{1F77F}]/gu, '')
-    .replace(/[\u{1F780}-\u{1F7FF}]/gu, '')
-    .replace(/[\u{1F800}-\u{1F8FF}]/gu, '')
-    .replace(/[\u{1F900}-\u{1F9FF}]/gu, '')
-    .replace(/[\u{1FA00}-\u{1FA6F}]/gu, '')
-    .replace(/[\u{2600}-\u{26FF}]/gu, '')
-    .replace(/[\u{2700}-\u{27BF}]/gu, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-}
-
-const hablar = (texto) => {
-  window.speechSynthesis.cancel()
-  const limpio = limpiarTexto(texto)
-  const voz = new SpeechSynthesisUtterance(limpio)
-  voz.lang = 'es-CL'
-  voz.rate = 0.85
-  voz.pitch = 1.1
-  window.speechSynthesis.speak(voz)
 }
 
 function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
@@ -46,6 +21,9 @@ function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
   const [terminado, setTerminado] = useState(false)
   const [estadoPersonaje, setEstadoPersonaje] = useState('pensando')
 
+  const hablar = useHablar()
+  const { sonidosActivos } = useConfig()
+
   useEffect(() => {
     const generador = generadores[materia]
     if (generador) setPreguntas(generador(nivel))
@@ -55,28 +33,30 @@ function Actividad({ nivel, materia, modo, color, acento, onVolver }) {
 
   const preguntaActual = preguntas[indice]
 
-const responder = (alternativa) => {
-  if (alternativa === preguntaActual.correcta) {
-    setResultado('correcto')
-    setPuntaje(puntaje + 1)
-    setEstadoPersonaje('celebrando')
-    sonidos.correcto()
-  } else {
-    setResultado('incorrecto')
-    setEstadoPersonaje('animando')
-    sonidos.incorrecto()
+  const responder = (alternativa) => {
+    if (alternativa === preguntaActual.correcta) {
+      setResultado('correcto')
+      setPuntaje(puntaje + 1)
+      setEstadoPersonaje('celebrando')
+      if (sonidosActivos) sonidos.correcto()
+    } else {
+      setResultado('incorrecto')
+      setEstadoPersonaje('animando')
+      if (sonidosActivos) sonidos.incorrecto()
+    }
   }
-}
+
   const siguiente = () => {
-  setResultado(null)
-  setEstadoPersonaje('pensando')
-  if (indice + 1 < preguntas.length) {
-    setIndice(indice + 1)
-  } else {
-    sonidos.logro()
-    setTerminado(true)
+    setResultado(null)
+    setEstadoPersonaje('pensando')
+    if (indice + 1 < preguntas.length) {
+      setIndice(indice + 1)
+    } else {
+      if (sonidosActivos) sonidos.logro()
+      setTerminado(true)
+    }
   }
-}
+
   if (terminado) {
     return (
       <main style={{
