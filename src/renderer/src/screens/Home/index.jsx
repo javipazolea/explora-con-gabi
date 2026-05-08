@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.css'
 import Personaje from '../../components/Personaje'
+import { sonidos } from '../../components/sonidos'
 
 function Home() {
   const navigate = useNavigate()
@@ -14,9 +15,9 @@ function Home() {
       </header>
 
       <section className={styles.section}>
-        <button onClick={() => navigate('/matematicas')}>🔢 Matemáticas</button>
-        <button onClick={() => navigate('/lenguaje')}>📖 Lenguaje</button>
-        <button onClick={() => navigate('/ciencias')}>🌿 Ciencias</button>
+        <button onClick={() => { sonidos.navegar(); navigate('/matematicas') }}>🔢 Matemáticas</button>
+        <button onClick={() => { sonidos.navegar(); navigate('/lenguaje') }}>📖 Lenguaje</button>
+        <button onClick={() => { sonidos.navegar(); navigate('/ciencias') }}>🌿 Ciencias</button>
       </section>
     </main>
   )

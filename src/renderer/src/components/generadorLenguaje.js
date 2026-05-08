@@ -26,7 +26,7 @@ const banco = {
     { enunciado: '¿Con qué letra empieza "uva"?', alternativas: ['A', 'E', 'I', 'U'], correcta: 'U' },
   ],
   2: [
-    { enunciado: '¿Qué sílaba falta? PE___', alternativas: ['RRO', 'LLU', 'MA', 'CA'], correcta: 'RR' },
+    { enunciado: '¿Qué sílaba falta? PE___', alternativas: ['RRO', 'LLU', 'MA', 'CA'], correcta: 'RRO' },
     { enunciado: '¿Qué palabra rima con "sol"?', alternativas: ['pan', 'col', 'mar', 'pie'], correcta: 'col' },
     { enunciado: '¿Qué palabra rima con "pan"?', alternativas: ['sol', 'mar', 'van', 'pie'], correcta: 'van' },
     { enunciado: '¿Qué palabra rima con "flor"?', alternativas: ['pan', 'sol', 'mar', 'amor'], correcta: 'amor' },
@@ -51,7 +51,7 @@ const banco = {
     { enunciado: '¿Cuál de estas es un adjetivo?', alternativas: ['correr', 'mesa', 'bonito', 'saltar'], correcta: 'bonito' },
     { enunciado: '¿Qué signo va al final de una pregunta?', alternativas: ['!', '.', '?', ','], correcta: '?' },
     { enunciado: '¿Qué signo va al final de una exclamación?', alternativas: ['!', '.', '?', ','], correcta: '!' },
-    { enunciado: '¿Cuál de estas palabras está bien escrita?', alternativas: ['Kasa', 'Casa', 'Caza', 'Qasa'], correcta: 'Casa' },
+    { enunciado: '¿Cuál de estas palabras está bien escrita?', alternativas: ['Kasa', 'Casa', 'Caxa', 'Qasa'], correcta: 'Casa' },
     { enunciado: '¿Cuál es el opuesto de "grande"?', alternativas: ['alto', 'pequeño', 'gordo', 'rápido'], correcta: 'pequeño' },
     { enunciado: '¿Cuál es el opuesto de "frío"?', alternativas: ['nieve', 'lluvia', 'caliente', 'viento'], correcta: 'caliente' },
     { enunciado: '¿Cuál es el opuesto de "rápido"?', alternativas: ['alto', 'pequeño', 'lento', 'suave'], correcta: 'lento' },
